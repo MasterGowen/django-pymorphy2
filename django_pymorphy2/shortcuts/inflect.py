@@ -1,15 +1,10 @@
-#coding: utf-8
-from __future__ import unicode_literals, absolute_import
-
-from django.template import TemplateSyntaxError
-
 from pymorphy2.shapes import restore_capitalization
 
 from django_pymorphy2.config import morph
 from django_pymorphy2.constants import DONT_INFLECT_FORMS
 from .phrase import process_phrase
 
-__all__ = ['inflect_word', 'inflect_phrase']
+__all__ = ['inflect_word', 'inflect_phrase', 'inflect_collocation_phrase']
 
 
 def inflect_word(word, forms, specifying_forms=None):
@@ -58,6 +53,7 @@ def inflect_word_from_nomn(word, forms, *args, **kwargs):
 
     return word
 
+
 def inflect_phrase(phrase, forms, *args, **kwargs):
     """
     Склоняет фразу в переданную форму пословно
@@ -72,6 +68,7 @@ def inflect_phrase(phrase, forms, *args, **kwargs):
 
     """
     return process_phrase(phrase, inflect_word, forms, *args, **kwargs)
+
 
 def inflect_collocation_phrase(phrase, forms, *args, **kwargs):
     return process_phrase(phrase, inflect_word_from_nomn, forms, *args, **kwargs)

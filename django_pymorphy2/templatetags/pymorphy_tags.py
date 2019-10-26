@@ -1,5 +1,3 @@
-#coding: utf-8
-from __future__ import unicode_literals, absolute_import
 
 """
     Создано на основе
@@ -9,7 +7,7 @@ from __future__ import unicode_literals, absolute_import
 import re
 
 from django import template
-from django.utils.text import force_text
+from django.utils.encoding import force_text
 
 from django_pymorphy2.config import MARKER_OPEN, MARKER_CLOSE
 from django_pymorphy2.shortcuts.forms import get_forms_tuple
@@ -26,6 +24,7 @@ def _process_marked_phrase(phrase, func, *args, **kwargs):
     Обработать фразу. В фразе обрабатываются только куски, заключенные
     в двойные квадратные скобки (например, "[[лошадь]] Пржевальского").
     """
+
     def process(m):
         return func(m.group(1)[2:-2], *args, **kwargs)
 
@@ -37,6 +36,7 @@ def _process_unmarked_phrase(phrase, func, *args, **kwargs):
     Обработать фразу. В фразе не обрабатываются куски, заключенные
     в двойные квадратные скобки (например, "лошадь [[Пржевальского]]").
     """
+
     def process(part):
         if not re.match(markup_re, part):
             return func(part, *args, **kwargs)

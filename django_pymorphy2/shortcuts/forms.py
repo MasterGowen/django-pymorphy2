@@ -1,7 +1,4 @@
-#coding: utf-8
-from __future__ import unicode_literals, absolute_import
-
-from django.utils.text import force_text
+from django.utils.encoding import force_text
 from django_pymorphy2.constants import INFLECT_FORMS, SPECIFYING_FORMS
 
 __all__ = ['get_forms_tuple']

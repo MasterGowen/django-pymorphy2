@@ -1,12 +1,10 @@
-#coding: utf-8
-from __future__ import unicode_literals, absolute_import
-
 from unittest import TestCase
 from django import template
 from django.utils.translation import ugettext_lazy as _
 
 from six import PY3
 from .templatetags.pymorphy_tags import inflect, plural, inflect_marked, inflect_collocation
+
 
 class PymorphyDjangoTestCase(TestCase):
     def _msg(self, fmt, w1, w2):
@@ -21,7 +19,7 @@ class InflectMarkedTagTest(PymorphyDjangoTestCase):
 
     def assertInflected(self, phrase, form, result):
         inflected_word = inflect_marked(phrase, form)
-        err_msg = self._msg("%s != %s" , inflected_word, result)
+        err_msg = self._msg("%s != %s", inflected_word, result)
         self.assertEqual(inflected_word, result, err_msg)
 
     def test_basic_no_inflect(self):
@@ -40,7 +38,7 @@ class InflectTagTest(PymorphyDjangoTestCase):
 
     def assertInflected(self, phrase, form, result):
         inflected_word = inflect(phrase, form)
-        err_msg = self._msg("%s != %s" , inflected_word, result)
+        err_msg = self._msg("%s != %s", inflected_word, result)
         self.assertEqual(inflected_word, result, err_msg)
 
     def test_word_case(self):
@@ -73,7 +71,6 @@ class InflectTagTest(PymorphyDjangoTestCase):
     def test_hyphen(self):
         self.assertInflected('Ростов-на-Дону', 'пр', 'Ростове-на-Дону')
 
-
     # тесты для несклоняемых кусков
     def test_basic_no_inflect(self):
         self.assertInflected('лошадь [[Пржевальского]]', 'дт', 'лошади Пржевальского')
@@ -91,7 +88,7 @@ class InflectCollocationTest(PymorphyDjangoTestCase):
 
     def assertInflected(self, phrase, form, result):
         inflected_word = inflect_collocation(phrase, form)
-        err_msg = self._msg("%s != %s" , inflected_word, result)
+        err_msg = self._msg("%s != %s", inflected_word, result)
         self.assertEqual(inflected_word, result, err_msg)
 
     def test_one_word(self):
@@ -132,11 +129,10 @@ class InflectCollocationTest(PymorphyDjangoTestCase):
         self.assertInflected('деревня Самосделкино', 'вн', 'деревню Самосделкино')
 
 
-
 class PluralTagTest(PymorphyDjangoTestCase):
     def assertPlural(self, phrase, amount, result):
         morphed = plural(phrase, amount)
-        err_msg = self._msg("%s != %s" , morphed, result)
+        err_msg = self._msg("%s != %s", morphed, result)
         self.assertEqual(morphed, result, err_msg)
 
     def test_pluralize(self):
@@ -163,13 +159,12 @@ class LazyStringTest(PymorphyDjangoTestCase):
     def test_safe_string(self):
         tpl = template.Template("{% load pymorphy_tags %}{{ 'конь'|inflect:'дт' }}")
         rendered, expected = tpl.render(template.Context()), 'коню'
-        err_msg = self._msg("%s != %s" , rendered, expected)
+        err_msg = self._msg("%s != %s", rendered, expected)
         self.assertEqual(rendered, expected, err_msg)
 
     def test_i18n_string(self):
         horse = _('конь')
         tpl = template.Template("{% load pymorphy_tags %}{{ horses|inflect:'дт' }}")
         rendered, expected = tpl.render(template.Context({'horses': horse})), 'коню'
-        err_msg = self._msg("%s != %s" , rendered, expected)
+        err_msg = self._msg("%s != %s", rendered, expected)
         self.assertEqual(rendered, expected, err_msg)
-

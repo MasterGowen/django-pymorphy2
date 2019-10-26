@@ -1,4 +1,3 @@
-dawg
 pymorphy2
 pymorphy2_dicts
-
+Django

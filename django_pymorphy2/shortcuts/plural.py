@@ -1,6 +1,3 @@
-#coding: utf-8
-from __future__ import unicode_literals, absolute_import
-
 import six
 
 from pymorphy2.shapes import restore_capitalization

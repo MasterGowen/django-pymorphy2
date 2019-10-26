@@ -1,6 +1,3 @@
-#coding: utf-8
-from __future__ import unicode_literals, absolute_import
-
 import warnings
 from django_pymorphy2.shortcuts import tokenizers
 
@@ -25,7 +22,7 @@ def process_phrase(phrase, func, forms, *args, **kwargs):
         То ли бросать исключение, то ли просто возвращать исходную фразу
         Пока выбрал второй вариант
         """
-        warnings.warn(e.message)
+        warnings.warn(e)
         return phrase
 
     return ''.join(result)
